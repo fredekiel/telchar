@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Telchar brand logo — "Smith's Mark".
+       Stylized rune-form mark (NOT a real certh; see BRAND.md).
+       Companion to the app icon's canonical cirth hallmark. -->
+  <defs>
+    <linearGradient id="iron" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2f45"/><stop offset="1" stop-color="#111119"/>
+    </linearGradient>
+    <filter id="gw" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="gt" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6"/></filter>
+  </defs>
+  <rect x="8" y="8" width="184" height="184" rx="42" fill="url(#iron)"/>
+  <rect x="8" y="8" width="184" height="184" rx="42" fill="none" stroke="#3a3f5c" stroke-width="1.5"/>
+  <path filter="url(#gw)" fill="none" stroke="#ff7a3c" stroke-width="13" stroke-linecap="round" opacity="0.55"
+    d="M100 52 L100 150 M100 52 L80 70 M100 52 L120 70 M100 96 L120 82 M100 118 L82 132"/>
+  <path filter="url(#gt)" fill="none" stroke="#ff9e64" stroke-width="9" stroke-linecap="round"
+    d="M100 52 L100 150 M100 52 L80 70 M100 52 L120 70 M100 96 L120 82 M100 118 L82 132"/>
+  <path fill="none" stroke="#ffab73" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"
+    d="M100 52 L100 150 M100 52 L80 70 M100 52 L120 70 M100 96 L120 82 M100 118 L82 132"/>
+  <path fill="none" stroke="#fff0d4" stroke-width="2.6" stroke-linecap="round"
+    d="M100 55 L100 147 M100 55 L82 71 M100 55 L118 71 M100 97 L117 84 M100 117 L84 130"/>
+</svg>

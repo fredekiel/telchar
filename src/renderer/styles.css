@@ -1,0 +1,158 @@
+@import 'tailwindcss';
+
+/* Design tokens — exposed as Tailwind color utilities (bg-bg, text-fg, …). */
+@theme {
+  --color-bg: #1a1b26;
+  --color-bgalt: #16161e;
+  --color-panel: #1f2335;
+  --color-panelhi: #292e42;
+  --color-border: #2a2e42;
+  --color-fg: #c0caf5;
+  --color-dim: #787c99;
+  --color-accent: #7aa2f7;
+  /* Forge ember — decorative brand accent only (boot glyph, empty-state motif).
+     NEVER used for attention state (those colors are locked). Tokyo Night orange. */
+  --color-ember: #ff9e64;
+}
+
+/* Light theme (Tokyo Night Day) — unlayered so it beats @theme's @layer theme
+   output. useThemeController sets data-theme on <html>; everything downstream
+   (utilities, --dv-*, scrollbars) resolves through these vars. */
+:root[data-theme='light'] {
+  --color-bg: #e1e2e7;
+  /* Darker than bg on purpose: keeps sidebar/tabstrips receding like dark
+     mode. Day's official bg_dark is LIGHTER than bg — would invert depth. */
+  --color-bgalt: #d5d6db;
+  --color-panel: #d1d4e3;
+  --color-panelhi: #c4c8da;
+  --color-border: #b6bac9;
+  --color-fg: #3760bf;
+  --color-dim: #848cb5;
+  --color-accent: #2e7de9;
+  /* Day ember — deeper so it reads on the light bg (Tokyo Night Day orange). */
+  --color-ember: #b15c00;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  font-size: 13px;
+  color: var(--color-fg);
+  background: var(--color-bg);
+}
+
+/* Thin dark scrollbars */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+/* xterm host */
+.term-host {
+  width: 100%;
+  height: 100%;
+  padding: 6px 8px;
+  background: var(--color-bg);
+}
+
+/* Dockview → Tokyo Night. Overrides the abyss theme's CSS variables so the
+   dock chrome matches the app palette; custom tab component handles content. */
+.telchar-dock {
+  --dv-background-color: var(--color-bg);
+  --dv-group-view-background-color: var(--color-bg);
+  --dv-tabs-and-actions-container-background-color: var(--color-bgalt);
+  --dv-activegroup-visiblepanel-tab-background-color: var(--color-bg);
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--color-panel);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--color-panel);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--color-panel);
+  --dv-activegroup-visiblepanel-tab-color: var(--color-fg);
+  --dv-activegroup-hiddenpanel-tab-color: var(--color-dim);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--color-fg);
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--color-dim);
+  --dv-separator-border: var(--color-border);
+  --dv-paneview-header-border-color: var(--color-border);
+  --dv-tab-divider-color: var(--color-border);
+  --dv-drag-over-background-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --dv-drag-over-border-color: var(--color-accent);
+  --dv-tabs-and-actions-container-height: 34px;
+  --dv-active-sash-color: var(--color-accent);
+  height: 100%;
+  width: 100%;
+}
+/* Tabs read as tabs: raised off the bar, separated, active marked by an
+   accent top line (VSCode-style). Layout tabs in the title bar stay pills. */
+.telchar-dock .dv-tab {
+  padding: 0;
+  border-right: 1px solid var(--color-border);
+  border-top: 2px solid transparent;
+}
+.telchar-dock .dv-tab.dv-inactive-tab:hover {
+  background: var(--color-panelhi);
+}
+/* Selection identity is ember (brand); interaction/focus stays accent blue,
+   attention stays amber — three hues, three meanings (see BRAND.md). */
+.telchar-dock .dv-groupview.dv-active-group > .dv-tabs-and-actions-container .dv-tabs-container > .dv-tab.dv-active-tab {
+  border-top-color: var(--color-ember);
+}
+.telchar-dock .dv-groupview.dv-inactive-group > .dv-tabs-and-actions-container .dv-tabs-container > .dv-tab.dv-active-tab {
+  border-top-color: color-mix(in srgb, var(--color-ember) 45%, transparent);
+}
+/* User-colored tabs (TabHeader stamps --tab-color + data-tab-color on the
+   .dv-tab cell). Tint mixes into theme tokens (opaque, theme-adaptive); the
+   color's own stripe replaces the accent stripe on the active tab. */
+.telchar-dock .dv-tab[data-tab-color] {
+  background: color-mix(in srgb, var(--tab-color) 10%, var(--color-panel));
+  border-top-color: color-mix(in srgb, var(--tab-color) 55%, transparent);
+}
+.telchar-dock .dv-tab.dv-inactive-tab[data-tab-color]:hover {
+  background: color-mix(in srgb, var(--tab-color) 16%, var(--color-panelhi));
+}
+.telchar-dock .dv-groupview.dv-active-group > .dv-tabs-and-actions-container .dv-tabs-container > .dv-tab.dv-active-tab[data-tab-color] {
+  background: color-mix(in srgb, var(--tab-color) 20%, var(--color-bg));
+  border-top-color: var(--tab-color);
+}
+.telchar-dock .dv-groupview.dv-inactive-group > .dv-tabs-and-actions-container .dv-tabs-container > .dv-tab.dv-active-tab[data-tab-color] {
+  background: color-mix(in srgb, var(--tab-color) 14%, var(--color-panel));
+  border-top-color: color-mix(in srgb, var(--tab-color) 60%, transparent);
+}
+/* Visible pane separation — two idle terminals otherwise bleed together. */
+.telchar-dock .dv-groupview {
+  outline: 1px solid var(--color-border);
+  outline-offset: -1px;
+}
+.telchar-dock .dv-sash:hover {
+  background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+/* Markdown rendering (plan view) */
+.plan-content {
+  line-height: 1.6;
+}
+.plan-content pre {
+  background: var(--color-bgalt);
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+.plan-content code {
+  font-family: Menlo, monospace;
+  font-size: 12px;
+}
+.plan-content h1,
+.plan-content h2,
+.plan-content h3 {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 4px;
+  margin-top: 1.2em;
+}
+.plan-content a {
+  color: var(--color-accent);
+}

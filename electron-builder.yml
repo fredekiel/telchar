@@ -1,0 +1,18 @@
+appId: dev.telchar.app
+productName: Telchar
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+# node-pty ships a .node binary + spawn-helper that cannot run from inside asar.
+asarUnpack:
+  - '**/node_modules/node-pty/**'
+mac:
+  icon: build/icon.png
+  target:
+    - target: dmg
+      arch:
+        - arm64
+  category: public.app-category.developer-tools

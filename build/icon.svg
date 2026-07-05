@@ -1,0 +1,46 @@
+<svg width="1024" height="1024" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Telchar app icon — "The Hallmark":
+       certh 8 (T, Angerthas Daeron) burning hot, the full name TELCHAR
+       struck beneath in six cirth (8 46 31 20 48 29). See BRAND.md. -->
+  <defs>
+    <linearGradient id="iron" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2f45"/><stop offset="1" stop-color="#111119"/>
+    </linearGradient>
+    <filter id="gw" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6.5"/></filter>
+    <filter id="gt" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4"/></filter>
+    <filter id="gr" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.3"/></filter>
+  </defs>
+  <!-- ~82% canvas footprint per macOS icon convention -->
+  <g transform="translate(11 11) scale(0.89)">
+    <rect x="8" y="8" width="184" height="184" rx="42" fill="url(#iron)"/>
+    <rect x="8" y="8" width="184" height="184" rx="42" fill="none" stroke="#3a3f5c" stroke-width="1.5"/>
+    <!-- certh 8 (T), large -->
+    <path filter="url(#gw)" fill="none" stroke="#ff7a3c" stroke-width="14" stroke-linecap="round" opacity="0.55"
+      d="M82 36 L82 122 M82 39 L130 62"/>
+    <path filter="url(#gt)" fill="none" stroke="#ff9e64" stroke-width="10" stroke-linecap="round"
+      d="M82 36 L82 122 M82 39 L130 62"/>
+    <path fill="none" stroke="#ffab73" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+      d="M82 36 L82 122 M82 39 L130 62"/>
+    <path fill="none" stroke="#fff0d4" stroke-width="2.8" stroke-linecap="round"
+      d="M82 39 L82 119 M82 42 L126 63"/>
+    <!-- hallmark row: TELCHAR — cirth 8 46 31 20 48 29 -->
+    <g fill="none" stroke-linecap="round">
+      <g filter="url(#gr)" stroke="#ff8a4d" stroke-width="16" opacity="0.85">
+        <g transform="translate(47,140) scale(0.19)"><path d="M12 0 L12 100 M12 4 L62 28"/></g>
+        <g transform="translate(65.5,140) scale(0.19)"><path d="M12 0 L12 100 M60 0 L60 100 M12 35 L60 59"/></g>
+        <g transform="translate(84,140) scale(0.19)"><path d="M36 0 L36 100 M10 58 L62 37"/></g>
+        <g transform="translate(102.5,140) scale(0.19)"><path d="M60 0 L60 100 M8 3 L60 63"/></g>
+        <g transform="translate(121,140) scale(0.19)"><path d="M12 0 L12 100 M12 4 L60 35 M60 35 L60 100"/></g>
+        <g transform="translate(139.5,140) scale(0.19)"><path d="M12 0 L12 100 M12 46 L64 7 M12 46 L64 93"/></g>
+      </g>
+      <g stroke="#ffc492" stroke-width="10">
+        <g transform="translate(47,140) scale(0.19)"><path d="M12 0 L12 100 M12 4 L62 28"/></g>
+        <g transform="translate(65.5,140) scale(0.19)"><path d="M12 0 L12 100 M60 0 L60 100 M12 35 L60 59"/></g>
+        <g transform="translate(84,140) scale(0.19)"><path d="M36 0 L36 100 M10 58 L62 37"/></g>
+        <g transform="translate(102.5,140) scale(0.19)"><path d="M60 0 L60 100 M8 3 L60 63"/></g>
+        <g transform="translate(121,140) scale(0.19)"><path d="M12 0 L12 100 M12 4 L60 35 M60 35 L60 100"/></g>
+        <g transform="translate(139.5,140) scale(0.19)"><path d="M12 0 L12 100 M12 46 L64 7 M12 46 L64 93"/></g>
+      </g>
+    </g>
+  </g>
+</svg>
