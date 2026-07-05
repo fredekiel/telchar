@@ -2,21 +2,25 @@
 
 One always-on window for running many Claude Code sessions across many project folders. Layout tabs hold dockable split-pane grids of terminals; a cross-layout attention system tells you at a glance which session needs you. Layouts survive restart and Claude sessions auto-resume.
 
-Electron · React 19 · TypeScript. **macOS (Apple Silicon) only.**
+Electron · React 19 · TypeScript. Runs on **macOS, Windows, and Linux**.
 
-![macOS arm64](https://img.shields.io/badge/macOS-Apple%20Silicon-black) ![license MIT](https://img.shields.io/badge/license-MIT-blue)
+![platform macOS · Windows · Linux](https://img.shields.io/badge/platform-macOS%20%C2%B7%20Windows%20%C2%B7%20Linux-black) ![license MIT](https://img.shields.io/badge/license-MIT-blue)
 
 ## Install
 
-Grab the latest `.dmg` from [**Releases**](https://github.com/fredekiel/telchar/releases/latest) and drag Telchar to Applications.
+Grab your platform's build from [**Releases**](https://github.com/fredekiel/telchar/releases/latest):
 
-The build isn't Apple-notarized, so the first launch shows *"Telchar is damaged."* It isn't — that's just Gatekeeper on unsigned apps. Clear the flag once:
+| OS | File |
+| --- | --- |
+| **macOS** (Apple Silicon) | `.dmg` — drag to Applications |
+| **Windows** (x64) | `Telchar-Setup-*.exe` installer, or the `-win.zip` portable |
+| **Linux** (x64) | `.AppImage` — `chmod +x` then run |
 
-```bash
-xattr -cr /Applications/Telchar.app
-```
+The builds aren't code-signed yet, so each OS warns once on first launch:
 
-Then open it normally. (Or build from source below — a local build has no such flag.)
+- **macOS** — *"Telchar is damaged"*: `xattr -cr /Applications/Telchar.app`, then open.
+- **Windows** — SmartScreen *"Windows protected your PC"*: **More info → Run anyway**.
+- **Linux** — needs FUSE for AppImage (`sudo apt install libfuse2` on some distros).
 
 ## Use
 
@@ -39,13 +43,15 @@ Handy keys:
 
 ## Build from source
 
-Needs Node 22+ and macOS on Apple Silicon.
+Needs Node 22+.
 
 ```bash
 npm install          # rebuilds node-pty against Electron's ABI
 npm run dev          # dev with hot reload
-npm run package      # arm64 .dmg + .zip into release/
+npm run package      # macOS arm64 .dmg + .zip into release/
 ```
+
+Installers for all three platforms are built by CI on each `v*` tag ([.github/workflows/release.yml](.github/workflows/release.yml)) — each OS is built on its own runner, since Electron + node-pty don't cross-compile.
 
 If your shell exports `ELECTRON_RUN_AS_NODE=1`, Electron boots as plain Node and crashes — prefix commands with `env -u ELECTRON_RUN_AS_NODE`.
 
