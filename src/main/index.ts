@@ -44,7 +44,11 @@ function createWindow(): void {
     minWidth: 800,
     minHeight: 500,
     backgroundColor: '#1a1b26',
-    titleBarStyle: 'hiddenInset',
+    // macOS insets the native traffic lights over the left rail. Windows/Linux
+    // have no such chrome, so we go frameless ('hidden') and draw our own
+    // minimize/maximize/close controls in the title bar (see TitleBar.tsx).
+    // 'hidden' on Windows keeps the resize borders and Aero snap.
+    titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'hidden',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       // Security baseline (architecture: set once, expensive to retrofit).

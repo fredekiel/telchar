@@ -247,6 +247,16 @@ export function registerIpc(getWindow: () => BrowserWindow | null): void {
     }
   })
 
+  // Custom title-bar controls for the frameless Windows/Linux chrome.
+  ipcMain.on(IPC.windowMinimize, () => getWindow()?.minimize())
+  ipcMain.on(IPC.windowMaximizeToggle, () => {
+    const w = getWindow()
+    if (!w) return
+    if (w.isMaximized()) w.unmaximize()
+    else w.maximize()
+  })
+  ipcMain.on(IPC.windowClose, () => getWindow()?.close())
+
   // ---- markdown / plan ----
   ipcMain.handle(IPC.markdownWatch, async (_e, path: string) => {
     if (!(await isAllowedPath(path))) return ''

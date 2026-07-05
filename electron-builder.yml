@@ -19,3 +19,23 @@ mac:
       arch:
         - arm64
   category: public.app-category.developer-tools
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: zip
+      arch:
+        - x64
+linux:
+  icon: build/icon.png
+  target:
+    - target: AppImage
+      arch:
+        - x64
+  category: Development
+publish:
+  provider: github
+  owner: fredekiel
+  repo: telchar

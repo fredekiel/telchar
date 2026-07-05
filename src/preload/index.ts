@@ -107,6 +107,12 @@ const api: TelcharApi = {
   app: {
     setBadge: (count) => ipcRenderer.send(IPC.appSetBadge, count)
   },
+  window: {
+    minimize: () => ipcRenderer.send(IPC.windowMinimize),
+    toggleMaximize: () => ipcRenderer.send(IPC.windowMaximizeToggle),
+    close: () => ipcRenderer.send(IPC.windowClose)
+  },
+  platform: process.platform,
   onShortcut: (cb) => {
     const h = (_e: unknown, action: ShortcutAction) => cb(action)
     ipcRenderer.on(IPC.shortcut, h)

@@ -3,7 +3,7 @@
 // leftInset reserves traffic-light space when no rail is wide enough to cover it.
 
 import { useState } from 'react'
-import { Plus, X, LayoutGrid } from 'lucide-react'
+import { Plus, X, LayoutGrid, Minus, Square } from 'lucide-react'
 import { useStore } from '../store'
 import { useRuntime, needsInputQueue } from '../state/runtime'
 import { Tooltip } from './ui/Tooltip'
@@ -69,6 +69,36 @@ export function TitleBar({ leftInset = 0 }: { leftInset?: number }) {
           )}
         </button>
       </Tooltip>
+      {window.telchar?.platform !== 'darwin' && <WindowControls />}
+    </div>
+  )
+}
+
+// Windows/Linux window controls. macOS uses native traffic lights, so this
+// only renders off-mac (see the frameless titleBarStyle in main/index.ts).
+function WindowControls() {
+  const { minimize, toggleMaximize, close } = window.telchar.window
+  const btn =
+    'flex h-11 w-12 shrink-0 cursor-pointer items-center justify-center text-dim hover:bg-panel hover:text-fg'
+  return (
+    <div
+      className="-mr-2 flex shrink-0"
+      style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
+    >
+      <button className={btn} onClick={() => minimize()} title="Minimize" aria-label="Minimize">
+        <Minus size={15} />
+      </button>
+      <button className={btn} onClick={() => toggleMaximize()} title="Maximize" aria-label="Maximize">
+        <Square size={12} />
+      </button>
+      <button
+        className={btn + ' hover:!bg-red-600 hover:!text-white'}
+        onClick={() => close()}
+        title="Close"
+        aria-label="Close"
+      >
+        <X size={16} />
+      </button>
     </div>
   )
 }

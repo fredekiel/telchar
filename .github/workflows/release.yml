@@ -1,0 +1,35 @@
+name: Release
+
+# Build native installers for macOS, Windows, and Linux on each runner's own
+# OS (Electron + node-pty can't be reliably cross-compiled) and publish them to
+# the GitHub release matching the pushed tag.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # postinstall runs electron-builder install-app-deps, rebuilding node-pty
+      # against this runner's platform + Electron ABI.
+      - run: npm ci
+      - name: Build and publish
+        run: npm run release
+        env:
+          # Auto-provided token; needs the contents:write permission above to
+          # create the release and upload assets.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

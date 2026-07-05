@@ -68,6 +68,10 @@ export const IPC = {
   claudeSessionInfo: 'claude:sessionInfo',
   // app chrome
   appSetBadge: 'app:setBadge',
+  // window controls (custom title bar chrome on Windows/Linux)
+  windowMinimize: 'window:minimize',
+  windowMaximizeToggle: 'window:maximizeToggle',
+  windowClose: 'window:close',
   // keyboard shortcuts (main menu accelerators -> renderer)
   shortcut: 'app:shortcut'
 } as const
@@ -291,5 +295,14 @@ export interface TelcharApi {
   app: {
     setBadge(count: number): void
   }
+  // Frameless window controls — only wired up on Windows/Linux (macOS uses
+  // native traffic lights via titleBarStyle: 'hiddenInset').
+  window: {
+    minimize(): void
+    toggleMaximize(): void
+    close(): void
+  }
+  // The host OS, read once at preload. Drives platform-specific chrome.
+  platform: NodeJS.Platform
   onShortcut(cb: (action: ShortcutAction) => void): () => void
 }

@@ -187,13 +187,16 @@ export function App() {
       </div>
     )
 
+  // Traffic lights only exist on macOS; off-mac there is nothing to inset past.
+  const isMac = window.telchar?.platform === 'darwin'
+
   // Zero projects: the whole window is one empty state — the app requires a
   // selected project, so nothing else is usable until a folder is added.
   if (!hasProjects) {
     return (
       <TooltipProvider>
         <div className="flex h-full flex-col">
-          <TitleBar leftInset={TRAFFIC_LIGHT_W} />
+          <TitleBar leftInset={isMac ? TRAFFIC_LIGHT_W : 0} />
           <LoadNoticeBanner />
           <NoProjectsState />
         </div>
@@ -207,7 +210,7 @@ export function App() {
   // sidebar collapses the rail narrows past the traffic lights — inset the
   // title bar by the overhang.
   const railWidth = ACTIVITY_BAR_W + (sidebar.collapsed ? 0 : sidebar.width)
-  const titleInset = Math.max(0, TRAFFIC_LIGHT_W - railWidth)
+  const titleInset = isMac ? Math.max(0, TRAFFIC_LIGHT_W - railWidth) : 0
 
   return (
     <TooltipProvider>
