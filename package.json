@@ -1,6 +1,6 @@
 {
   "name": "telchar",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Multi-project AI terminal for developers driving Claude Code and other agents",
   "main": "./out/main/index.js",
   "author": "Telchar",
