@@ -12,6 +12,15 @@ import { flushStateSync } from './persistence'
 
 let mainWindow: BrowserWindow | null = null
 
+// Dev and packaged builds must never share persisted state or the single-instance
+// lock. Electron would otherwise derive userData from the app name — 'telchar' (dev)
+// vs 'Telchar' (packaged productName), which collide on case-insensitive macOS.
+// Redirect dev to a distinct dir (differs by more than case) before the lock is
+// acquired and before persistence ever reads workspace.json.
+if (!app.isPackaged) {
+  app.setPath('userData', `${app.getPath('userData')}-dev`)
+}
+
 // Two instances would race last-writer-wins on the same workspace.json.
 const gotLock = app.requestSingleInstanceLock()
 if (!gotLock) app.quit()
